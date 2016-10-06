@@ -25,6 +25,11 @@ hasdups([U | X]) :-
 plus(0, X, X).
 plus(s(X), Y, s(Z)) :- plus(X, Y, Z).
 
+odd(s(0)).
+odd(X) :-
+  plus(s(s(0)), X1, X),
+  odd(X1).
+
 % recursion - prod
 prod([], 1).
 prod([X | Y], Z) :-
