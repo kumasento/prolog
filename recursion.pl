@@ -23,8 +23,7 @@ hasdups([U | X]) :-
 
 % recursion - peano number
 plus(0, X, X).
-plus(s(X), Y, Z) :- 
-  plus(X, s(Y), Z).
+plus(s(X), Y, s(Z)) :- plus(X, Y, Z).
 
 % recursion - prod
 prod([], 1).
