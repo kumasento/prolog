@@ -85,8 +85,9 @@ quick_sort([H | T], L) :-
   append(L3, [H | L4], L).
 
 % all lists input are sorted from outside.
-add_poly_inner(L, [], L).
-add_poly_inner([], L, L).
+add_poly_inner([], [], []).
+add_poly_inner(L,  [],  L) :- length(L, LN), LN \= 0.
+add_poly_inner([],  L,  L) :- length(L, LN), LN \= 0.
 add_poly_inner([(C1,I1)|T1], [(C2,I2)|T2], L) :-
   I1 == I2,
   add_poly_inner(T1, T2, L1),
@@ -101,17 +102,5 @@ add_poly_inner([(C1,I1)|T1], [(C2,I2)|T2], L) :-
   add_poly_inner(T1, [(C2,I2)|T2], L1),
   append([(C1,I1)], L1, L).
 
-add_poly(L1, L2, L3) :-
-  length(L1, LN1),
-  length(L2, LN2),
-  LN1 >= LN2,
-  quick_sort(L1, S1),
-  quick_sort(L2, S2),
-  add_poly_inner(S1, S2, L3).
-add_poly(L1, L2, L3) :-
-  length(L1, LN1),
-  length(L2, LN2),
-  LN1 < LN2,
-  quick_sort(L2, S1),
-  quick_sort(L1, S2),
-  add_poly_inner(S1, S2, L3).
+add_poly(L1, L2, L3) :- quick_sort(L1, S1), quick_sort(L2, S2), add_poly_inner(S1, S2, L3).
+add_poly(L1, L2, L3) :- quick_sort(L2, S1), quick_sort(L1, S2), add_poly_inner(S1, S2, L3).
