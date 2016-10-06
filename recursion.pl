@@ -22,15 +22,12 @@ hasdups([U | X]) :-
   hasdups(X).
 
 % recursion - peano number
+plus(0, X, X).
+plus(s(X), Y, Z) :- 
+  plus(X, s(Y), Z).
 
 % recursion - prod
 prod([], 1).
 prod([X | Y], Z) :-
   prod(Y, Z1),
   Z is X * Z1.
-
-% recursion - contains
-contains(_, [], 0).
-contains([H | T1], [H | T2],  N) :-
-  contains(T1, T2, N),
-  contains(T1, [H | T2], N+1).
